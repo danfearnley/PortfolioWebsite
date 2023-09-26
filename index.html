@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Daniel Fearnley's Portfolio</title>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&display=swap" rel="stylesheet">
+
+        <link href="styles.css" rel="stylesheet" type="text/css">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+    <body>
+        <header class="header">
+            <h1>Daniel Fearnley</h1>
+            <h2>Portfolio</h2>
+
+            <nav id="navbar-example2" class="navbar">
+                <a class="navbar-brand" href="#"></a>
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#skills">My Skills</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#portfolio">Portfolio</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                  </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+            <main id="contents">
+                <p>On this portfolio site, you'll find the following information:</p>
+                <ul>
+                    <li><a href="#skills">My Skills</a></li>
+                    <li><a href="#portfolio">My Portfolio of Work</a></li>
+                    <li><a href="#contact">My Contact Information</a></li>
+                </ul>
+            </main>
+
+            <section id="skills">
+                <h3>My Skills</h3>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                HTML & CSS
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <strong>Knowledge is from The Coder's Guild Web Development Bootcamp, The Odin Project and Udemy.</strong> I picked up HTML and CSS as I really wanted to understand how websites worked, how they were built, and ultimately go into a career of building them myself.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Python
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <strong>Knowledge is all self taught, using courses on Udemy.</strong> I do only have beginner's knowledge of Python, self taught from various Udemy courses. This is something I'd be very interested in progressing further in the future.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Visualfiles
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <strong>Via LexisNexis, and a lot of self taught knowledge since 2016.</strong> Visualfiles is a case management system - used mainly by law firms - and has a bespoke language for development. My main day to day involved building workflows for fee earners to use to speed up their daily processes.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Other Skills
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p><strong>Agile working.</strong> Throughout my software development career, working with Visualfiles, almost everywhere I have been had been using some form of agile methodology to work. This also includes leading daily stand ups.</p>
+                                <p><strong>Senior developer.</strong> Since 2022, I have termed a "senior". This means I peer review non-senior dev work, and I am the first point of call for devs when they are in need of help. This was achieved through years of working with Visualfiles.</p>
+                                <p><strong>Communication.</strong> I have been developing great communication skills throughout my entire working career. Be that on the telephone during part time work, or collaborating with stake holders and other senior figures at law firms. This could be to flesh out a workflow, come up with a plan to build on an existing workflow, or bug fix.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+            </section>
+
+            
+
+            <section id="portfolio">
+                <h3>My Portfolio of Work</h3>
+                <p>Work in progress!! Though it's something like this...</p>
+                <p><iframe src="https://giphy.com/embed/13FrpeVH09Zrb2" width="480" height="462" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></p>
+            </section>
+
+            <section id="contact">
+                <h3>My Contact Information</h3>
+                <p><img src="https://www.svgrepo.com/show/383239/email-envelope-letter-message-fast.svg" alt="Email Icon" class="icon"> dfearnley@me.com</p>
+                <p><img src="https://www.svgrepo.com/show/522680/telephone-signal.svg" alt="Telephone Icon" class="icon"> 07777 777 777</p>
+                <p><a href="https://www.linkedin.com/in/daniel-fearnley-0a9a46251/" target="_blank"><img src="https://www.svgrepo.com/show/521725/linkedin.svg" alt="LinkedIn Icon" class="icon"> LinkedIn</a></p>
+            </section>
+        </div>
+
+        <footer id="footer">
+            <p>Thanks for visiting!</p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
