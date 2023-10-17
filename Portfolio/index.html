@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+        <title>Tips</title>
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type=number] {
+                -moz-appearance:textfield;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Tip Calculator!</h1>
+
+        <label for="bill">Enter the bill amount:</label>
+        <input required id="bill" type="number" name="bill" placeholder="0" step=".01">
+
+        <label for="options">Add tip by:</label>
+        <select name="options" id="options" name="options" onchange="dropdownLabel(this)">
+          <option value="1">Percentage</option>
+          <option value="2">Flat amount</option>
+        </select>
+
+        <label for="tip" id="tipLabel">Enter the tip percentage:</label>
+        <input id="tip" type="number" name="tip" placeholder="0">
+
+        <label for="split">Split by how many people:</label>
+        <input id="split" type="number" name="split" placeholder="1">
+
+        <input type="submit" value="Calculate Total" id="calcBut" onclick="calcBut(this)">
+
+        <p id="billOutput">Pending...</p>
+
+        <script src="script.js"></script>
+    </body>
+</html>
