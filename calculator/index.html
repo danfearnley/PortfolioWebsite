@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/> -->
+    <link href="style.css" rel="stylesheet" type="text/css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Orbitron&display=swap" rel="stylesheet">
+
+    <title>Calculator</title>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <br/>
+    <!-- <label for="firstNumber">Enter the first number:</label>
+    <input required id="firstNumber" type="number" name="firstNumber" placeholder="0">
+    <br/>
+    <label for="operand">Select your operand:</label>
+    <select name="operand" id="operand" name="operand">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="x">x</option>
+        <option value="÷">÷</option>
+        <option value="%">%</option>
+    </select>
+    <br/>
+    <label for="secondNumber">Enter the second number:</label>
+    <input required id="secondNumber" type="number" name="secondNumber" placeholder="0">
+    <br/>
+    <input type="submit" value="Calculate!" id="calcBut" onclick="calculator(this)">
+    <p id="output">Pending choice...</p> -->
+    
+
+
+
+    <div class="calculator">
+        <div class="display" id="display">
+            <div class="enteredDisplay">
+                <p id="enteredDisplay"></p>
+            </div>
+            <div class="typedDisplay">
+                <p id="typedDisplay"></p>
+            </div>
+        </div>
+
+        <div class="buttonGrid">
+            <div class="buttonRow">
+                <button class="doubleButton" onclick="allClearButton()" id="allClear">AC</button>
+                <button class="button" onclick="clearButton()" id="clear">C</button>
+                <button class="button" onclick="operandButton(this.id)" id="+">+</button>
+            </div>
+            <div class="buttonRow">
+                <button class="button" onclick="numberButton(this.id)" id="1">1</button>
+                <button class="button" onclick="numberButton(this.id)" id="2">2</button>
+                <button class="button" onclick="numberButton(this.id)" id="3">3</button>
+                <button class="button" onclick="operandButton(this.id)" id="-">-</button>
+            </div>
+            <div class="buttonRow">
+                <button class="button" onclick="numberButton(this.id)" id="4">4</button>
+                <button class="button" onclick="numberButton(this.id)" id="5">5</button>
+                <button class="button" onclick="numberButton(this.id)" id="6">6</button>
+                <button class="button" onclick="operandButton(this.id)" id="x">x</button>    
+            </div>
+            <div class="buttonRow">
+                <button class="button" onclick="numberButton(this.id)" id="7">7</button>
+                <button class="button" onclick="numberButton(this.id)" id="8">8</button>
+                <button class="button" onclick="numberButton(this.id)" id="9">9</button>
+                <button class="button" onclick="operandButton(this.id)" id="÷">÷</button>    
+            </div>
+            <div class="buttonRow">
+                <button class="button" onclick="numberButton(this.id)" id="decimal">.</button>
+                <button class="button" onclick="numberButton(this.id)" id="0">0</button>
+                <button class="button" onclick="equalsButton()" id="equals">=</button>
+                <button class="button" onclick="operandButton(this.id)" id="%">%</button>    
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.calculator {
+    background-color: lightblue;
+    padding: 15px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.display {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Orbitron', sans-serif;
+    margin: 5px;
+    background-color: darkseagreen;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.typedDisplay {
+    font-size: 30px;
+    text-align: right;
+    width: 100%;
+    min-height: 50px;
+    padding-right: 15px;
+}
+
+.enteredDisplay {
+    text-align: right;
+    width: 100%;
+    min-height: 30px;
+    padding-right: 30px;
+}
+
+.buttonGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.button {
+    width: 75px;
+}
+
+.doubleButton {
+    width: 169px;
+}
+
+button, h1 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 2px;
+}
+
+button {
+    font-size: 25px;
+    box-shadow: 0 6px #999;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 8px;
+    height: 75px;
+    transition: 0.2s;
+}
+
+p {
+    margin:5px 0px 5px 0px;
+}
+
+button:hover {
+    background-color: lightgray;
+}
+
+button:active {
+    transform: translateY(4px);
+    background-color: darkgrey;
+    box-shadow: 0 3px #666;
+}
