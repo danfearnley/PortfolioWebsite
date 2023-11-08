@@ -28,7 +28,7 @@
                 Filters
             </button>
             
-            <button type="button" id="trolleyButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trolleyModal">
+            <button type="button" id="trolleyButton" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#trolleySidebar">
                 Trolley
             </button>
         </div>
@@ -77,24 +77,16 @@
             </div>
         </div>
 
-        <!-- Trolley Modal -->
-        <div class="modal fade" id="trolleyModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Trolley</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Generated in script.js -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
-                    </div>
-                </div>
+        <!-- Trolley Sidebar -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="trolleySidebar" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Trolley</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        </div>
+            <div class="offcanvas-body" id="trolleyBody">
+              <!-- Trolley Sidebar generated in JS -->
+            </div>
+          </div>
     </header>
 
     <body>
