@@ -1,0 +1,58 @@
+#header {
+    margin: auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#price {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#price input {
+    margin:5px;
+}
+
+.headerButtons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.headerButtons button {
+    margin-right: 10px;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.fullItemsList {
+    margin: 45px
+}
+
+.amountNumber {
+    width: 40px;
+    text-align: center;
+}
+
+.itemGrid {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 20px;
+}
+
+.cardButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

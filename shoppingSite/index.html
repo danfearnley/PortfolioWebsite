@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance:textfield;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1>My Example Shopping Page</h1>
+        
+        <div class="headerButtons">
+            <!-- Button trigger filters modal -->
+            <button type="button" id="filterButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Filters
+            </button>
+            
+            <button type="button" id="trolleyButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trolleyModal">
+                Trolley
+            </button>
+        </div>
+
+        <!-- Filters Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Filters</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="price">
+                            <label for="priceRange" class="form-label">Price Range</label>
+                            <input class="form-control form-control-sm" type="text" placeholder="Price from..." aria-label="price from">
+                            <input class="form-control form-control-sm" type="text" placeholder="Price to..." aria-label="price to">
+                        </div>
+        
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="btnradio1">All</label>
+                        
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">Food</label>
+                        
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">Drink</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio4">Other</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                            Only Show In Stock Items
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trolley Modal -->
+        <div class="modal fade" id="trolleyModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Trolley</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Generated in script.js -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <body>
+        <ul class="list-group fullItemsList">
+            <li class="list-group-item activate foodList">
+                <h2>Food</h2> 
+                <div class="foodGrid itemGrid">
+                    <div class="card activate" style="width: 16rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">Beans</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <p id="beansStock">Quantity in stock: 125</p>
+                            <p id="beansPrice">£1.50</p>
+                            <div class="cardButtons">
+                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
+                                    <button type="button" class="btn btn-outline-primary" id="decreaseBeans" onclick="decreaseButton(this.id)">-</button>
+                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="beansAmount" min="0">
+                                    <button type="button" class="btn btn-outline-primary" id="increaseBeans" onclick="increaseButton(this.id)">+</button>
+                               </div>
+
+                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBeans" onclick="addButton(this.id)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card activate" style="width: 16rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">Bread</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <p id="breadStock">Quantity in stock: 8</p>
+                            <p id="breadPrice">£0.85</p>
+                            <div class="cardButtons">
+                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
+                                    <button type="button" class="btn btn-outline-primary" id="decreaseBread" onclick="decreaseButton(this.id)">-</button>
+                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="breadAmount" min="0">
+                                    <button type="button" class="btn btn-outline-primary" id="increaseBread" onclick="increaseButton(this.id)">+</button>
+                               </div>
+
+                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBread" onclick="addButton(this.id)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item activate drinkList">
+                <h2>Drink</h2>
+                <div class="drinkGrid itemGrid">
+                    <div class="card activate" style="width: 16rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">Lemonade</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <p id="lemonadeStock">Quantity in stock: 72</p>
+                            <p id="lemonadePrice">£1.75</p>
+                            <div class="cardButtons">
+                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
+                                    <button type="button" class="btn btn-outline-primary" id="decreaseLemonade" onclick="decreaseButton(this.id)">-</button>
+                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="lemonadeAmount" min="0">
+                                    <button type="button" class="btn btn-outline-primary" id="increaseLemonade" onclick="increaseButton(this.id)">+</button>
+                               </div>
+
+                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addLemonade" onclick="addButton(this.id)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card activate" style="width: 16rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">Beer</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <p id="beerStock">Quantity in stock: 3</p>
+                            <p id="beerPrice">£7.50</p>
+                            <div class="cardButtons">
+                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
+                                    <button type="button" class="btn btn-outline-primary" id="decreaseBeer" onclick="decreaseButton(this.id)">-</button>
+                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="beerAmount" min="0">
+                                    <button type="button" class="btn btn-outline-primary" id="increaseBeer" onclick="increaseButton(this.id)">+</button>
+                               </div>
+
+                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBeer" onclick="addButton(this.id)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item activate otherList">
+                <h2>Other</h2>
+                <div class="otherGrid itemGrid">
+                    <div class="card activate" style="width: 16rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">Batteries</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <p id="batteriesStock">Quantity in stock: 8</p>
+                            <p id="batteriesPrice">£10.00</p>
+                            <div class="cardButtons">
+                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
+                                    <button type="button" class="btn btn-outline-primary" id="decreaseBatteries" onclick="decreaseButton(this.id)">-</button>
+                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="batteriesAmount" min="0">
+                                    <button type="button" class="btn btn-outline-primary" id="increaseBatteries" onclick="increaseButton(this.id)">+</button>
+                               </div>
+
+                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBatteries" onclick="addButton(this.id)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </body>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
