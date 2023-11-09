@@ -76,6 +76,8 @@ generateTrolley = (trolleyAmount, itemToAdd) => {
         const trolleyCard = document.createElement("div");
         trolleyCard.classList.add("card");
         trolleyCard.style.cssText = "width: 18rem;";
+        const trolleyItemAmountID = `${itemToAdd}TrolleyCard`;
+        trolleyCard.setAttribute("id", trolleyItemAmountID);
     
         const trolleyCardBody = document.createElement("div");
         trolleyCardBody.classList.add("card-body");
@@ -205,9 +207,16 @@ removeFromTrolley = (removeID) => {
     const itemRemovedQuantityID = `${itemRemoved}Stock`
     const itemRemovedQuantity = parseInt(document.getElementById(itemRemovedQuantityID).innerText.replace(/^\D+/g, ''));
     document.getElementById(itemRemovedQuantityID).innerText = `Quantity in stock: ${itemRemovedQuantity + returnPropertyValue(itemRemoved, "quantity")}`;
-    trolleyItems = trolleyItems.filter(item => item.name != itemRemoved);
-    console.log(trolleyItems);  
+    trolleyItems = trolleyItems.filter(item => item.name != itemRemoved); // remove from array
+    console.log(trolleyItems);
+    const element = document.getElementById(`${itemRemoved}TrolleyCard`);
+    element.classList.add("hide");
+    delay(500).then(() => element.remove());
 }
+
+delay = (time) => {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
 
 getMaxValue = (...args) => {
     for (let i = 0; i < args.length; i++) {

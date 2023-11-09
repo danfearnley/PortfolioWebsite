@@ -56,3 +56,13 @@
     justify-content: center;
     align-items: center;
 }
+
+#trolleySidebar div {
+    right: 0px
+}
+
+#trolleySidebar  div.hide {
+    position: fixed;
+    right: -500px;
+    transition: right 1s;
+}
