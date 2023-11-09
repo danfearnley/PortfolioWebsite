@@ -80,11 +80,15 @@
         <!-- Trolley Sidebar -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="trolleySidebar" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Trolley</h5>
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Trolley | Total £0.00</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="trolleyBody">
-              <!-- Trolley Sidebar generated in JS -->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Discount Code" id="discountCode">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="updateTrolleyTotal()">Enter</button>
+                  </div>
+                <!-- Trolley Sidebar generated in JS -->
             </div>
           </div>
     </header>
@@ -93,109 +97,20 @@
         <ul class="list-group fullItemsList">
             <li class="list-group-item activate foodList">
                 <h2>Food</h2> 
-                <div class="foodGrid itemGrid">
-                    <div class="card activate" style="width: 16rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">Beans</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <p id="beansStock">Quantity in stock: 125</p>
-                            <p id="beansPrice">£1.50</p>
-                            <div class="cardButtons">
-                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
-                                    <button type="button" class="btn btn-outline-primary" id="decreaseBeans" onclick="decreaseButton(this.id)">-</button>
-                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="beansAmount" min="0">
-                                    <button type="button" class="btn btn-outline-primary" id="increaseBeans" onclick="increaseButton(this.id)">+</button>
-                               </div>
-
-                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBeans" onclick="addButton(this.id)">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card activate" style="width: 16rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">Bread</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <p id="breadStock">Quantity in stock: 8</p>
-                            <p id="breadPrice">£0.85</p>
-                            <div class="cardButtons">
-                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
-                                    <button type="button" class="btn btn-outline-primary" id="decreaseBread" onclick="decreaseButton(this.id)">-</button>
-                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="breadAmount" min="0">
-                                    <button type="button" class="btn btn-outline-primary" id="increaseBread" onclick="increaseButton(this.id)">+</button>
-                               </div>
-
-                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBread" onclick="addButton(this.id)">Add</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="foodGrid itemGrid" id="foodGrid">
+                    <!-- Generated in storeFront -->
                 </div>
             </li>
             <li class="list-group-item activate drinkList">
                 <h2>Drink</h2>
-                <div class="drinkGrid itemGrid">
-                    <div class="card activate" style="width: 16rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">Lemonade</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <p id="lemonadeStock">Quantity in stock: 72</p>
-                            <p id="lemonadePrice">£1.75</p>
-                            <div class="cardButtons">
-                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
-                                    <button type="button" class="btn btn-outline-primary" id="decreaseLemonade" onclick="decreaseButton(this.id)">-</button>
-                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="lemonadeAmount" min="0">
-                                    <button type="button" class="btn btn-outline-primary" id="increaseLemonade" onclick="increaseButton(this.id)">+</button>
-                               </div>
-
-                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addLemonade" onclick="addButton(this.id)">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card activate" style="width: 16rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">Beer</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <p id="beerStock">Quantity in stock: 3</p>
-                            <p id="beerPrice">£7.50</p>
-                            <div class="cardButtons">
-                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
-                                    <button type="button" class="btn btn-outline-primary" id="decreaseBeer" onclick="decreaseButton(this.id)">-</button>
-                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="beerAmount" min="0">
-                                    <button type="button" class="btn btn-outline-primary" id="increaseBeer" onclick="increaseButton(this.id)">+</button>
-                               </div>
-
-                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBeer" onclick="addButton(this.id)">Add</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="drinkGrid itemGrid" id="drinkGrid">
+                    <!-- Generated in storeFront -->
                 </div>
             </li>
             <li class="list-group-item activate otherList">
                 <h2>Other</h2>
-                <div class="otherGrid itemGrid">
-                    <div class="card activate" style="width: 16rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">Batteries</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <p id="batteriesStock">Quantity in stock: 8</p>
-                            <p id="batteriesPrice">£10.00</p>
-                            <div class="cardButtons">
-                                <div class="input-group input-group-sm btn-group-sm amountGroup" role="group" aria-label="Small button group">
-                                    <button type="button" class="btn btn-outline-primary" id="decreaseBatteries" onclick="decreaseButton(this.id)">-</button>
-                                    <input type="number" class="form-control-sm-1 amountNumber" placeholder="1" id="batteriesAmount" min="0">
-                                    <button type="button" class="btn btn-outline-primary" id="increaseBatteries" onclick="increaseButton(this.id)">+</button>
-                               </div>
-
-                               <button type="button" class="btn btn-outline-primary btn-sm addButton" id="addBatteries" onclick="addButton(this.id)">Add</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="otherGrid itemGrid" id="otherGrid">
+                    <!-- Generated in storeFront -->
                 </div>
             </li>
         </ul>

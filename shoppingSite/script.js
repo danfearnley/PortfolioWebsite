@@ -20,32 +20,42 @@
 //     return items;
 // }
 
-// const stockList = [{
-//     name: "loaf of bread",
-//     type: "food",
-//     quantity: 1,
-//     price: 0.85
-// },{
-//     name: "multipack beans",
-//     type: "food",
-//     quantity: 1,
-//     price: 1
-// },{
-//     name: "multipack lemonade",
-//     type: "drink",
-//     quantity: 2,
-//     price: 1.5
-// },{
-//     name: "beer",
-//     type: "drink",
-//     quantity: 6,
-//     price: 7 
-// },{
-//     name: "nappies",
-//     type: "other",
-//     quantity: 30,
-//     price: 12 
-// }]
+const stockList = [{
+    name: "loaf of bread",
+    type: "food",
+    quantity: 12,
+    price: 0.85
+},{
+    name: "multipack beans",
+    type: "food",
+    quantity: 21,
+    price: 1
+},{
+    name: "multipack lemonade",
+    type: "drink",
+    quantity: 24,
+    price: 1.5
+},{
+    name: "beer",
+    type: "drink",
+    quantity: 46,
+    price: 7 
+},{
+    name: "nappies",
+    type: "other",
+    quantity: 30,
+    price: 12 
+},{
+    name: "butter",
+    type: "food",
+    quantity: 20,
+    price: 2
+},{
+    name: "batteries",
+    type: "other",
+    quantity: 14,
+    price: 7.5
+}]
 
 // console.log(calculateTotalPrice(stockList, 50, "any"));
 // console.log(priceRange(stockList, 0.9, 1.1, true));
@@ -54,7 +64,30 @@
 
 let trolleyItems = []; // Cannot be const as being reassigned in removeFromTrolley
 
-returnPropertyValue = (item, property) => {
+sentenceCase = (str) => {
+    let splitStr = str.toLowerCase().split(' ');
+    for (let i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+}
+
+returnStockValue = (item, property) => {
+    for (let i in stockList) {
+        if (item == stockList[i].name) {
+            switch (property) {
+                case "type":
+                    return stockList[i].type;
+                case "quantity":
+                    return stockList[i].quantity;
+                case "price":
+                    return stockList[i].price;
+            }
+        }
+    }
+}
+
+returnTrolleyValue = (item, property) => {
     for (let i in trolleyItems) {
         if (item == trolleyItems[i].name) {
             switch (property) {
@@ -86,13 +119,13 @@ generateTrolley = (trolleyAmount, itemToAdd) => {
         trolleyItemAmount.classList.add("card-text");
         const itemAmountID = itemToAdd + "TrolleyItemAmount";
         trolleyItemAmount.setAttribute("id", itemAmountID);
-        trolleyItemAmount.textContent = `${itemToAdd.charAt(0).toUpperCase() + itemToAdd.slice(1)} x ${returnPropertyValue(itemToAdd, "quantity")}`;
+        trolleyItemAmount.textContent = `${sentenceCase(itemToAdd)} x ${returnTrolleyValue(itemToAdd, "quantity")}`;
         
         const trolleyItemTotal = document.createElement("p");
         trolleyItemTotal.classList.add("card-text");
         const itemTotalID = itemToAdd + "TrolleyItemTotal";
         trolleyItemTotal.setAttribute("id", itemTotalID);
-        trolleyItemTotal.textContent = `£${returnPropertyValue(itemToAdd, "total")}`;
+        trolleyItemTotal.textContent = `£${returnTrolleyValue(itemToAdd, "total").toFixed(2)}`;
         trolleyItemTotal.style.cssText = "text-align: right;";
 
         const trolleyRemove = document.createElement("button");
@@ -113,10 +146,10 @@ generateTrolley = (trolleyAmount, itemToAdd) => {
         trolleySidebar.appendChild(trolleyCard);
     } else { // Amend existing card if already in trolley
         const trolleyItemID = `${itemToAdd}TrolleyItemAmount`;
-        document.getElementById(trolleyItemID).innerHTML = `${itemToAdd.charAt(0).toUpperCase() + itemToAdd.slice(1)} x ${checkTrolley(itemToAdd)}`;
+        document.getElementById(trolleyItemID).innerHTML = `${sentenceCase(itemToAdd)} x ${checkTrolley(itemToAdd)}`;
 
         const trolleyTotalID = `${itemToAdd}TrolleyItemTotal`;
-        document.getElementById(trolleyTotalID).innerHTML = `£${parseInt(returnPropertyValue(itemToAdd, "total"))}`;
+        document.getElementById(trolleyTotalID).innerHTML = `£${parseInt(returnTrolleyValue(itemToAdd, "total"))}`;
     }
 }
 
@@ -133,44 +166,56 @@ addButton = (clickedID) => {
     const itemToAdd = clickedID.substring(3).toLowerCase();
     const stockID = itemToAdd + "Stock";
 
-    if (parseInt(document.getElementById(stockID).innerText.replace(/^\D+/g, '')) == 0) {
+    if (returnStockValue(itemToAdd, "quantity") == 0) {
         alert("Item out of stock");
     } else {
         const trolleyAmount = checkTrolley(itemToAdd); // check if item already in trolley, return number if it is
         const amountID = itemToAdd + "Amount";
-        let selectedAmount = parseInt(document.getElementById(amountID).value);
+        let selectedAmount = parseFloat(document.getElementById(amountID).value); // get amount the user wants to add to trolley
 
         if (isNaN(selectedAmount)) {
            selectedAmount = 1; // If NaN, ie, not entered anything, default to 1 
         } 
 
         if (selectedAmount > 0) {
-            const priceID = itemToAdd + "Price";
-            const totalAmount = document.getElementById(priceID).innerText.substring(1) * selectedAmount; // get total price, removing £ from start
-            
             if (!trolleyAmount) { // If not already in trolley
                 trolleyItems.push({
                     name: itemToAdd,
                     amount: selectedAmount,
-                    price: document.getElementById(priceID).innerText.substring(1),
-                    total: totalAmount
+                    price: returnStockValue(itemToAdd, "price"),
+                    total: returnStockValue(itemToAdd, "price") * selectedAmount,
+                    type: returnStockValue(itemToAdd, "type")
                 })
+
+                for (let i in stockList) {
+                    if (itemToAdd == stockList[i].name) {
+                        stockList[i].quantity -= selectedAmount;
+                    }
+                }
             } else {
                 for (let item in trolleyItems) {
                     if (trolleyItems[item].name == itemToAdd) { // Find item in trolley
                         trolleyItems[item].amount = selectedAmount + trolleyAmount; // Add item to total
-                        trolleyItems[item].total = trolleyItems[item].amount * document.getElementById(priceID).innerText.substring(1); // Increase total price
+                        trolleyItems[item].total = trolleyItems[item].amount * returnStockValue(itemToAdd, "price"); // Increase total price
+
+                        for (let i in stockList) {
+                            if (itemToAdd == stockList[i].name) {
+                                stockList[i].quantity -= selectedAmount;
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
             }
 
             const stockID = itemToAdd + "Stock";
-            document.getElementById(stockID).innerText = `Quantity in stock: ${parseInt(document.getElementById(stockID).innerText.replace(/^\D+/g, '')) - selectedAmount}`;
+            document.getElementById(stockID).innerText = `Quantity in stock: ${returnStockValue(itemToAdd, "quantity")}`;
             document.getElementById(amountID).value = "";
             generateTrolley(trolleyAmount, itemToAdd);
             console.log(trolleyItems);
         }
+        updateTrolleyTotal();
     }
 }
 
@@ -179,7 +224,7 @@ decreaseButton = (clickedID) => {
     const selectedAmount = document.getElementById(amountID).value;
 
     if (selectedAmount > 0) {
-        document.getElementById(amountID).value = parseInt(selectedAmount) - 1;
+        document.getElementById(amountID).value =parseFloat(selectedAmount) - 1;
     } else if (!selectedAmount) {
         document.getElementById(amountID).value = 0;
     }
@@ -187,13 +232,14 @@ decreaseButton = (clickedID) => {
 
 increaseButton = (clickedID) => {
     const amountID = `${clickedID.substring(8).toLowerCase()}Amount`;
-    const stockID = `${clickedID.substring(8).toLowerCase()}Stock`;
 
-    const selectedAmount = parseInt(document.getElementById(amountID).value);
-    const stockAmount = parseInt(document.getElementById(stockID).innerText.replace(/^\D+/g, '')); // replace all none numbers with nothing
+    const selectedAmount = parseFloat(document.getElementById(amountID).value);
+    const stockAmount = returnStockValue(clickedID.substring(8).toLowerCase(), "quantity");
 
     if (stockAmount == 0) {
         // Do nothing as item out of stock
+    } else if (!selectedAmount && stockAmount == 1) {
+        document.getElementById(amountID).value = 1;
     } else if (!selectedAmount) {
         document.getElementById(amountID).value = 2; // assign to 2 if pressing plus on blank
     } else if (selectedAmount < stockAmount) {
@@ -203,32 +249,148 @@ increaseButton = (clickedID) => {
 
 removeFromTrolley = (removeID) => {
     const itemRemoved = removeID.substring(0, removeID.length - 6); // get item to be removed
-    console.log(returnPropertyValue(itemRemoved, "quantity"));
     const itemRemovedQuantityID = `${itemRemoved}Stock`
-    const itemRemovedQuantity = parseInt(document.getElementById(itemRemovedQuantityID).innerText.replace(/^\D+/g, ''));
-    document.getElementById(itemRemovedQuantityID).innerText = `Quantity in stock: ${itemRemovedQuantity + returnPropertyValue(itemRemoved, "quantity")}`;
+
+    document.getElementById(itemRemovedQuantityID).innerText = `Quantity in stock: ${returnStockValue(itemRemoved, "quantity") + returnTrolleyValue(itemRemoved, "quantity")}`;
+    stockList[stockList.findIndex(item => item.name === itemRemoved)].quantity += returnTrolleyValue(itemRemoved, "quantity"); // Add back to stock
+
     trolleyItems = trolleyItems.filter(item => item.name != itemRemoved); // remove from array
-    console.log(trolleyItems);
-    const element = document.getElementById(`${itemRemoved}TrolleyCard`);
+
+    const element = document.getElementById(`${itemRemoved}TrolleyCard`); // remove card from trolley
     element.classList.add("hide");
     delay(500).then(() => element.remove());
+    updateTrolleyTotal();
 }
 
 delay = (time) => {
     return new Promise(resolve => setTimeout(resolve, time));
   }
 
+updateTrolleyTotal = () => {
+    const trolleyTotal = document.getElementById("offcanvasRightLabel");
+    const discountCode = document.getElementById("discountCode").value.toLowerCase();
+    let trolleyAmount = 0;
+    let itemType;
+
+    for (let item in trolleyItems) {
+        if (discountCode === "any") {
+            itemType = trolleyItems[item].type;
+        } else if (discountCode) {
+            itemType = discountCode;
+        }
+        trolleyAmount += parseFloat(trolleyItems[item].total * (trolleyItems[item].type === itemType ? ((100 - 20) / 100) : 1)); // apply discount if type matches
+    }
+    trolleyTotal.innerText = `Your Trolley | Total £${trolleyAmount.toFixed(2)}`;
+}
+
 getMaxValue = (...args) => {
     for (let i = 0; i < args.length; i++) {
-        const stockID = args[i] + "Stock";
-        const stockAmount = document.getElementById(stockID).innerText.replace(/^\D+/g, '');
+        const stockAmount = returnStockValue(args[i], "quantity");
         const amountID = args[i] + "Amount";
         const inputField = document.getElementById(amountID);
         
         inputField.addEventListener("blur", (e) => { // ensure users cant type more than stock amount
-            parseInt(e.target.value) > parseInt(stockAmount) ? inputField.value = stockAmount : inputField.value = parseInt(e.target.value);
+           parseFloat(e.target.value) >parseFloat(stockAmount) ? inputField.value = stockAmount : inputField.value = parseFloat(e.target.value);
         })
     }
 }
 
-getMaxValue("beans", "bread", "lemonade", "beer", "batteries");
+storeFront = (stockList) => {
+    for (let item in stockList) {
+        const itemGridID = `${stockList[item].type}Grid`;
+        const itemGrid = document.getElementById(itemGridID);
+
+        const itemCard = document.createElement("div");
+        itemCard.classList.add("card");
+        itemCard.classList.add("activate");
+        itemCard.style.cssText = "width: 16rem;";
+
+        const itemCardHeader = document.createElement("div");
+        itemCardHeader.classList.add("card-header");
+
+        const itemCardH5 = document.createElement("h5");
+        itemCardH5.classList.add("card-title");
+        itemCardH5.textContent = sentenceCase(stockList[item].name);
+
+        itemCardHeader.appendChild(itemCardH5);
+        itemCard.appendChild(itemCardHeader);
+
+        const itemCardBody = document.createElement("div");
+        itemCardBody.classList.add("card-body");
+        itemCardBody.classList.add("text-center");
+
+        const itemCardStock = document.createElement("p");
+        const itemCardStockID = `${stockList[item].name}Stock`;
+        itemCardStock.setAttribute("id", itemCardStockID);
+        itemCardStock.textContent = `Quantity in stock: ${stockList[item].quantity}`;
+        itemCardBody.appendChild(itemCardStock);
+
+        const itemCardPrice = document.createElement("p");
+        const itemCardPriceID = `${stockList[item].name}Price`;
+        itemCardPrice.setAttribute("id", itemCardPriceID);
+        itemCardPrice.textContent = `£${stockList[item].price.toFixed(2)}`;
+        itemCardBody.appendChild(itemCardPrice);
+
+        const itemCardButtons = document.createElement("div");
+        itemCardButtons.classList.add("cardButtons");
+
+        const itemCardStockButtons = document.createElement("div");
+        itemCardStockButtons.classList.add("input-group");
+        itemCardStockButtons.classList.add("input-group-sm");
+        itemCardStockButtons.classList.add("btn-group-sm");
+        itemCardStockButtons.classList.add("amountGroup");
+        itemCardStockButtons.setAttribute("role", "group");
+
+        const itemCardDecrease = document.createElement("button");
+        itemCardDecrease.classList.add("btn");
+        itemCardDecrease.classList.add("btn-outline-primary");
+        itemCardDecrease.setAttribute("type", "button");
+        const itemCardDecreaseID = `decrease${sentenceCase(stockList[item].name)}`;
+        itemCardDecrease.setAttribute("id", itemCardDecreaseID);
+        itemCardDecrease.setAttribute("onclick", "decreaseButton(this.id)");
+        itemCardDecrease.textContent = "-";
+        itemCardStockButtons.appendChild(itemCardDecrease);
+
+        const itemCardAmount = document.createElement("input");
+        itemCardAmount.classList.add("form-control-sm-1");
+        itemCardAmount.classList.add("amountNumber");
+        itemCardAmount.setAttribute("type", "number");
+        const itemCardAmountID = `${stockList[item].name}Amount`;
+        itemCardAmount.setAttribute("id", itemCardAmountID);
+        itemCardAmount.setAttribute("placeholder", 1);
+        itemCardAmount.setAttribute("min", 0);
+        itemCardStockButtons.appendChild(itemCardAmount);
+
+        const itemCardIncrease = document.createElement("button");
+        itemCardIncrease.classList.add("btn");
+        itemCardIncrease.classList.add("btn-outline-primary");
+        itemCardIncrease.setAttribute("type", "button");
+        const itemCardIncreaseID = `increase${sentenceCase(stockList[item].name)}`;
+        itemCardIncrease.setAttribute("id", itemCardIncreaseID);
+        itemCardIncrease.setAttribute("onclick", "increaseButton(this.id)");
+        itemCardIncrease.textContent = "+";
+        itemCardStockButtons.appendChild(itemCardIncrease);
+
+        itemCardButtons.appendChild(itemCardStockButtons);
+
+        const itemCardAdd = document.createElement("button");
+        itemCardAdd.classList.add("btn");
+        itemCardAdd.classList.add("btn-outline-primary");
+        itemCardAdd.classList.add("btn-sm");
+        itemCardAdd.classList.add("addButton");
+        itemCardAdd.setAttribute("type", "button");
+        const itemCardAddID = `add${sentenceCase(stockList[item].name)}`;
+        itemCardAdd.setAttribute("id", itemCardAddID);
+        itemCardAdd.setAttribute("onclick", "addButton(this.id)");
+        itemCardAdd.textContent = "Add";
+        itemCardButtons.appendChild(itemCardAdd);
+
+        itemCardBody.appendChild(itemCardButtons);
+        itemCard.appendChild(itemCardBody);
+        itemGrid.appendChild(itemCard);
+    }
+}
+
+storeFront(stockList);
+console.log(stockList);
+stockList.forEach((item) => getMaxValue(item.name));
