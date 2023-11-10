@@ -64,6 +64,11 @@ const stockList = [{
 
 let trolleyItems = []; // Cannot be const as being reassigned in removeFromTrolley
 
+const discountInput = document.getElementById("discountCode");
+discountInput.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") updateTrolleyTotal();
+})
+
 sentenceCase = (str) => {
     let splitStr = str.toLowerCase().split(' ');
     for (let i = 0; i < splitStr.length; i++) {
@@ -401,5 +406,5 @@ storeFront = (stockList) => {
 }
 
 storeFront(stockList);
-console.log(stockList);
 stockList.forEach((item) => getMaxValue(item.name));
+console.log(stockList);
