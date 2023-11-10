@@ -271,6 +271,7 @@ updateTrolleyTotal = () => {
     const discountCode = document.getElementById("discountCode").value.toLowerCase();
     let trolleyAmount = 0;
     let itemType;
+    const discountAmount = (100 - 20) / 100;
 
     for (let item in trolleyItems) {
         if (discountCode === "any") {
@@ -278,7 +279,15 @@ updateTrolleyTotal = () => {
         } else if (discountCode) {
             itemType = discountCode;
         }
-        trolleyAmount += parseFloat(trolleyItems[item].total * (trolleyItems[item].type === itemType ? ((100 - 20) / 100) : 1)); // apply discount if type matches
+        trolleyAmount += parseFloat(trolleyItems[item].total * (trolleyItems[item].type === itemType ? discountAmount : 1)); // apply discount if type matches
+
+        const itemTotalID = trolleyItems[item].name + "TrolleyItemTotal";
+        const trolleyItemTotal = document.getElementById(itemTotalID);
+        if (trolleyItems[item].type === itemType) {
+            trolleyItemTotal.innerHTML = `£${(returnTrolleyValue(trolleyItems[item].name, "total") * discountAmount).toFixed(2)}   <span style="text-decoration: line-through;">£${returnTrolleyValue(trolleyItems[item].name, "total").toFixed(2)}</span>`;
+        } else {
+            trolleyItemTotal.innerHTML = `£${returnTrolleyValue(trolleyItems[item].name, "total").toFixed(2)}`;
+        }
     }
     trolleyTotal.innerText = `Your Trolley | Total £${trolleyAmount.toFixed(2)}`;
 }
