@@ -48,7 +48,7 @@ const stockList = [{
 },{
     name: "butter",
     type: "food",
-    quantity: 20,
+    quantity: 0,
     price: 2
 },{
     name: "batteries",
@@ -309,14 +309,15 @@ getMaxValue = (...args) => {
     }
 }
 
-storeFront = (stockList) => {
+storeFront = (stockList) => { // There MUST be a quicker way of doing this?
     for (let item in stockList) {
         const itemGridID = `${stockList[item].type}Grid`;
         const itemGrid = document.getElementById(itemGridID);
 
         const itemCard = document.createElement("div");
         itemCard.classList.add("card");
-        itemCard.classList.add("activate");
+        const itemCardID = `${stockList[item].name}Card`;
+        itemCard.setAttribute("id", itemCardID);
         itemCard.style.cssText = "width: 16rem;";
 
         const itemCardHeader = document.createElement("div");
@@ -403,6 +404,73 @@ storeFront = (stockList) => {
         itemCard.appendChild(itemCardBody);
         itemGrid.appendChild(itemCard);
     }
+}
+
+unhideEverything = () => {
+    // Have to use a while, as getElementsByClassName is an active nodelist. As we remove the list updates,
+    //  so the next index willmean we've skipped one as index 1 will become index 0.
+    let itemsToUnhide = document.getElementsByClassName("hide");
+    while (itemsToUnhide.length) {
+        itemsToUnhide[0].classList.remove("hide");
+    }
+}
+
+hideCard = (cardToHide) => {
+    document.getElementById(cardToHide).classList.add("hide");
+}
+
+hideGrid = (gridToHide) => {
+    for (let elem in document.getElementsByClassName("itemGrid")) {
+        if (document.getElementsByClassName("itemGrid")[elem].id !== gridToHide && document.getElementsByClassName("itemGrid")[elem].id) {
+            document.getElementById(document.getElementsByClassName("itemGrid")[elem].id).classList.add("hide");
+        }
+    }
+}
+
+applyFilters = () => {
+    const priceFrom = document.getElementById("priceFrom").value;
+    const priceTo = document.getElementById("priceTo").value;
+
+    // Below 2 lines put all the buttons within the item filter into an array using ID and then input type.
+    // With this array, we check each item, and look to see where the value of checked is true.
+    // Then we assign the ID into activeItemFiler, after removing the word "filter"
+    const itemFilterButtons = Array.from(document.querySelectorAll("#itemFilterButtons input"));
+    const activeItemFilter = itemFilterButtons.filter(item => item.checked === true)[0].id.slice(0, -6);
+
+    const onlyShowStocked = document.getElementById("onlyShowStocked").checked; // Bool
+    console.log(`${priceFrom} ${priceTo} ${activeItemFilter} ${onlyShowStocked}`);
+
+    if (activeItemFilter !== "all") { // Check item filter first
+        hideGrid(`${activeItemFilter}Grid`);
+    } else {
+        unhideEverything();
+    }
+
+    for (let item in stockList) {
+        if (priceFrom > 0 && stockList[item].price < priceFrom) {
+            hideCard(`${stockList[item].name}Card`);
+        }
+
+        if (priceTo > 0 && stockList[item].price > priceTo) {
+            hideCard(`${stockList[item].name}Card`);
+        }
+
+        if (onlyShowStocked && stockList[item].quantity === 0) {
+            hideCard(`${stockList[item].name}Card`);
+        }
+    }
+}
+
+resetFilters = () => {
+    document.getElementById("priceFrom").value = "";
+    document.getElementById("priceTo").value = "";
+    document.getElementById("allFilter").checked = true;
+    document.getElementById("foodFilter").checked = false;
+    document.getElementById("drinkFilter").checked = false;
+    document.getElementById("otherFilter").checked = false;
+    document.getElementById("onlyShowStocked").checked = false;
+
+    unhideEverything();
 }
 
 storeFront(stockList);
