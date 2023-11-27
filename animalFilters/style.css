@@ -1,0 +1,19 @@
+html {
+    margin: 20px;
+}
+
+.searchBar {
+    max-width: 450px;
+}
+
+.input-group {
+    margin: 20px;
+}
+
+img {
+    margin: 3px;
+}
+
+.hide {
+    display:none;
+}
