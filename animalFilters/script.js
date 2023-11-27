@@ -13,7 +13,7 @@ setHelpText = () => {
         }
     }
 
-    document.querySelector("h3").innerHTML = `Limiting results to show animals${search.value ? ` description containing "${search.value}"` : ""}${activeFilter && activeFilter !== "all" ? ` with the filter ${activeFilter}` : ""}.`
+    document.querySelector("h3").innerHTML = `${search.value || (activeFilter && activeFilter !== "all") ? "Limiting results to show animals" : ""}${search.value ? ` description containing "${search.value}"` : ""}${activeFilter && activeFilter !== "all" ? ` with the filter ${activeFilter}` : ""}.`
 }
 
 filterByButton = (item) => {
@@ -31,7 +31,7 @@ filterByButton = (item) => {
 
 filterBySearch = () => {
     const searchText = search.value.toLowerCase();
-
+    
     for (let item of button) {
         if (item.classList.contains("active")) {
             activeFilter = item.getAttribute("animal");
@@ -57,5 +57,6 @@ for (let item of button) {
 }
 
 search.addEventListener("keyup", (e) => {
+    preventDefault();
     filterBySearch();
 })
